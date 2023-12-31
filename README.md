@@ -1,1 +1,1 @@
-# suvamthakur-DSA-Bootcamp-C_programming
+# DSA-Bootcamp-C_programming
