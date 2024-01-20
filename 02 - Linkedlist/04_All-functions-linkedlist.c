@@ -6,17 +6,17 @@ void insertNode();
 void insertFirst(int);
 void insertGivenPosition(int);
 void insertLast(int);
-// void deleteNode();
-// void deleteFirst();
-// void deleteGivenPosition();
-// void deleteLast();
-// void search();
+void deleteNode();
+void deleteFirst();
+void deleteGivenPosition();
+void deleteLast();
+void search();
 void display();
 
 struct Node {
     int data;
     struct Node *next;
-} *head, *temp, *temp2, *temp3, *tail;
+} *head, *temp, *temp2, *temp3;
 
 int main() {
     int ch;
@@ -32,9 +32,9 @@ int main() {
             case 2:
                 insertNode();
                 break;
-            // case 3:
-            //     deleteNode();
-            //     break;
+            case 3:
+                deleteNode();
+                break;
             case 4:
                 display();
                 break;
@@ -58,7 +58,6 @@ void createNode() {
         head = (struct Node*)malloc(sizeof(struct Node));
         head->data = item;
         head->next = NULL;
-        tail = head;
     }
     else {
         temp = (struct Node*)malloc(sizeof(struct Node));
@@ -70,7 +69,6 @@ void createNode() {
         }
         temp2->next = temp;
         temp2 = temp;
-        tail = temp;
     }
 }
 void insertNode() {
@@ -117,22 +115,100 @@ void insertGivenPosition(int data) {
     temp = (struct Node*)malloc(sizeof(struct Node));
     temp->data = data;
     temp2 = head;
-    while(p>2) {
+    while(p>2 && temp2!=NULL) {
         temp2 = temp2->next;
         p--;
     }
-    temp3 = temp2->next;
-    temp2->next = temp;
-    temp->next = temp3;
+    if(temp2==NULL) {
+        printf("\n Cannot insert at position %d", p+1);
+    }
+    else {
+        if(p==2) {
+            temp->next = NULL;
+        }
+        else {
+            temp3 = temp2->next;
+            temp->next = temp3;
+        }
+        temp2->next = temp;
+    }
 }
 void insertLast(int data) {
     temp = (struct Node*)malloc(sizeof(struct Node));
     temp->data = data;
     temp->next = NULL;
-    tail->next = temp;
-    tail = temp;
+    temp2 = head;
+    while(temp2->next!=NULL) {
+        temp2 = temp2->next;
+    }
+    temp2->next = temp;
 }
 
+void deleteNode() {
+    if(head==NULL) {
+        printf("\nEmpty list");
+    } else {
+        int ch, data;
+        printf("\n 1: DeleteFirst, 2: DeleteGivenPosition, 3: DeleteLast, 4: Exit");
+        printf("\nEnter a no: ");
+        scanf("%d", &ch);
+        switch(ch) {
+            case 1:
+                deleteFirst();
+                break;
+            case 2:
+                deleteGivenPosition();
+                break;
+            case 3:
+                deleteLast();
+                break;
+            case 4:
+                exit(0);
+                break;
+            default:
+                printf("\nWrong input");
+                break;
+        }
+    }
+}
+void deleteFirst() {
+    temp2 = head;
+    head = head->next;
+    temp2->next = NULL;
+    printf("%d is deleted", temp2->data);
+    free(temp2);
+}
+void deleteGivenPosition() {
+    int p;
+    printf("\nEnter position: ");
+    scanf("%d", &p);
+    temp2 = head;
+    while(p>2) {
+        temp2 = temp2->next;
+        p--;
+    }
+    if(temp2==NULL) {
+        printf("\nNode not present at position %d", p);
+    } else {
+        temp = temp2->next;
+        temp2->next = temp->next;
+        temp->next = NULL;
+        printf("%d is deleted", temp->data);
+        free(temp);
+    }
+}
+void deleteLast() {
+    temp2 = head;
+    if(temp2->next!=NULL) {
+        while(temp2->next!=NULL) {
+            temp3 = temp2;
+            temp2 = temp2->next;
+        }
+        temp3->next = NULL;
+    }
+    printf("%d is deleted", temp2->data);
+    free(temp2);
+}
 
 void display() {
     if(head==NULL) {
@@ -140,8 +216,13 @@ void display() {
     } else {
         temp2 = head;
         while(temp2!=NULL) {
-            printf(" [%d] ", temp2->data);
+            printf(" [%d]", temp2->data);
             temp2 = temp2->next;
         }
+    }
+}
+void search() {
+    if(head==NULL) {
+
     }
 }
