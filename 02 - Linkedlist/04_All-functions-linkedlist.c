@@ -38,9 +38,9 @@ int main() {
             case 4:
                 display();
                 break;
-            // case 5:
-            //     search();
-            //     break;
+            case 5:
+                search();
+                break;
             case 6:
                 exit(0);
             default:
@@ -223,6 +223,23 @@ void display() {
 }
 void search() {
     if(head==NULL) {
-
+        printf("\nEmptly list");
+    } else {
+        int v, flag=0;
+        printf("\nEnter searching element: ");
+        scanf("%d", &v);
+        temp2 = head;
+        while(temp2!=NULL) {
+            if(temp2->data == v) {
+                flag = 1;
+                break;
+            }
+            temp2 = temp2->next;
+        }
+        if(flag==1) {
+            printf("\n %d is present", v);
+        } else {
+            printf("\n %d is not present", v);
+        }
     }
 }
