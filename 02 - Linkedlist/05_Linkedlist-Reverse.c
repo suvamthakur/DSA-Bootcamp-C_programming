@@ -54,6 +54,7 @@ void reverse() {
     preNode = NULL;
     printf("\nList reversed");
 }
+// Recursive Method of this is present in Recursion folder.
 
 void createNode() {
     int item;
